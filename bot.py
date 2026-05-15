@@ -43,6 +43,15 @@ for holiday in holidays:
         requests.post(send_url, json={
 
             "chat_id": CHAT_ID,
+            send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+requests.post(send_url, json={
+
+    "chat_id": CHAT_ID,
+
+    "text": "Test: bot is working"
+
+})
 
             "text": text
 
