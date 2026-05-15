@@ -2,17 +2,19 @@ import os
 
 import requests
 
+from datetime import date
+
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 CHAT_ID = os.getenv("CHAT_ID")
 
-print("BOT_TOKEN exists:", BOT_TOKEN is not None)
+COUNTRY = "DE"
 
-print("BOT_TOKEN starts with:", BOT_TOKEN[:5] if BOT_TOKEN else "None")
+REMIND_DAYS = [1, 3, 7]
 
 send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
-response = requests.post(send_url, json={
+requests.post(send_url, json={
 
     "chat_id": CHAT_ID,
 
@@ -20,6 +22,36 @@ response = requests.post(send_url, json={
 
 })
 
-print("Telegram status:", response.status_code)
+today = date.today()
 
-print("Telegram response:", response.text)
+year = today.year
+
+url = f"https://date.nager.at/api/v3/PublicHolidays/{year}/{COUNTRY}"
+
+holidays = requests.get(url).json()
+
+for holiday in holidays:
+
+    holiday_date = date.fromisoformat(holiday["date"])
+
+    days_left = (holiday_date - today).days
+
+    if days_left in REMIND_DAYS:
+
+        text = (
+
+            f"ACHTUNG: in {days_left} days Feiertag - "
+
+            f"{holiday['localName']}.\n"
+
+            f"ALLES GESCHLOSSEN"
+
+        )
+
+        requests.post(send_url, json={
+
+            "chat_id": CHAT_ID,
+
+            "text": text
+
+        })
