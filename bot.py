@@ -1,3 +1,11 @@
+import os
+
+import requests
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+CHAT_ID = os.getenv("CHAT_ID")
+
 send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
 response = requests.post(send_url, json={
@@ -11,5 +19,3 @@ response = requests.post(send_url, json={
 print("Telegram status:", response.status_code)
 
 print("Telegram response:", response.text)
-
-response.raise_for_status()
