@@ -1,38 +1,15 @@
-import os
-import requests
-from datetime import date
-
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
-
-COUNTRY = "DE"
-REMIND_DAYS = list(range(0, 365))
-
 send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
-requests.post(send_url, json={
+response = requests.post(send_url, json={
+
     "chat_id": CHAT_ID,
+
     "text": "Test: bot is working"
+
 })
 
-today = date.today()
-year = today.year
+print("Telegram status:", response.status_code)
 
-url = f"https://date.nager.at/api/v3/PublicHolidays/{year}/{COUNTRY}"
-holidays = requests.get(url).json()
+print("Telegram response:", response.text)
 
-for holiday in holidays:
-    holiday_date = date.fromisoformat(holiday["date"])
-    days_left = (holiday_date - today).days
-
-    if days_left in REMIND_DAYS:
-        text = (
-            f"ACHTUNG: in {days_left} days Feiertag - "
-            f"{holiday['localName']}.\n"
-            f"ALLES GESCHLOSSEN"
-        )
-
-        requests.post(send_url, json={
-            "chat_id": CHAT_ID,
-            "text": text
-        })
+response.raise_for_status()
