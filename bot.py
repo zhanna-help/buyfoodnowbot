@@ -38,7 +38,7 @@ for holiday in holidays:
 
         )
 
-        send_url = f"https://api.telegram.org/bot{8829249920:AAHeSCWXDJXdKgqfVO0zuh5iMtNxKHmpQRo}/sendMessage"
+        send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
         requests.post(send_url, json={
 
