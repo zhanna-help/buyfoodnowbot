@@ -30,6 +30,6 @@ jobs:
 
         env:
 
-          8829249920:AAHeSCWXDJXdKgqfVO0zuh5iMtNxKHmpQRo: ${{ secrets.BOT_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
-          616872473: ${{ secrets.CHAT_ID }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
