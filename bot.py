@@ -14,14 +14,6 @@ REMIND_DAYS = [1, 3, 7]
 
 send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
-requests.post(send_url, json={
-
-    "chat_id": CHAT_ID,
-
-    "text": "Test: bot is working"
-
-})
-
 today = date.today()
 
 year = today.year
@@ -40,7 +32,7 @@ for holiday in holidays:
 
         text = (
 
-            f"ACHTUNG: in {days_left} days Feiertag - "
+            f"ACHTUNG: in {days_left} days is Feiertag - "
 
             f"{holiday['localName']}.\n"
 
