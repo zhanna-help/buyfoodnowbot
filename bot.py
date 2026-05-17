@@ -10,7 +10,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 COUNTRY = "DE"
 
-REMIND_DAYS = list(range(0, 365))
+REMIND_DAYS = [1, 3, 7]
 
 send_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
